@@ -1,0 +1,68 @@
+CREATE TABLE Students (
+    id_student INT PRIMARY KEY AUTO_INCREMENT,
+    name_student VARCHAR(128) NOT NULL,
+    age_student INT
+);
+
+
+
+CREATE TABLE Teachers (
+    id_teacher INT PRIMARY KEY AUTO_INCREMENT,
+    name_teacher VARCHAR(128) NOT NULL,
+    age_teacher INT
+);
+
+CREATE TABLE Competencies (
+    id_competen INT PRIMARY KEY AUTO_INCREMENT,
+    title_competen VARCHAR(128) NOT NULL
+);
+
+
+CREATE TABLE Teachers2Competencies (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    id_teacher INT,
+    id_competen INT,
+    FOREIGN KEY (id_teacher) REFERENCES Teachers(id_teacher),
+    FOREIGN KEY (id_competen) REFERENCES Competencies(id_competen)
+);
+
+CREATE TABLE Courses (
+    id_course INT PRIMARY KEY AUTO_INCREMENT,
+    id_teacher INT,
+    title_course VARCHAR(128) NOT NULL,
+    id_headman INT,
+    FOREIGN KEY (id_teacher) REFERENCES Teachers(id_teacher),
+    FOREIGN KEY (id_headman) REFERENCES Students(id_student)
+);
+
+CREATE TABLE Students2Courses (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    id_student INT,
+    id_course INT,
+    FOREIGN KEY (id_student) REFERENCES Students(id_student),
+    FOREIGN KEY (id_course) REFERENCES Courses(id_course)
+);
+
+INSERT INTO Students (name_student, age_student) VALUES ('Анатолий', 29);
+INSERT INTO Students (name_student, age_student) VALUES ('Олег', 25);
+INSERT INTO Students (name_student, age_student) VALUES ('Семен', 27);
+INSERT INTO Students (name_student, age_student) VALUES ('Олеся', 28);
+INSERT INTO Students (name_student, age_student) VALUES ('Ольга', 31);
+INSERT INTO Students (name_student, age_student) VALUES ('Иван', 22);
+
+
+INSERT INTO Teachers (name_teacher, age_teacher) VALUES ('Петр', 39);
+INSERT INTO Teachers (name_teacher, age_teacher) VALUES ('Максим', 35);
+INSERT INTO Teachers (name_teacher, age_teacher) VALUES ('Антон', 37);
+INSERT INTO Teachers (name_teacher, age_teacher) VALUES ('Всеволод', 38);
+INSERT INTO Teachers (name_teacher, age_teacher) VALUES ('Егор', 41);
+INSERT INTO Teachers (name_teacher, age_teacher) VALUES ('Светлана', 32);
+
+
+INSERT INTO Competencies (title_competen) VALUES ('Математика');
+INSERT INTO Competencies (title_competen) VALUES ('Информатика');
+INSERT INTO Competencies (title_competen) VALUES ('Программирование');
+INSERT INTO Competencies (title_competen) VALUES ('Графика');
+
+
+

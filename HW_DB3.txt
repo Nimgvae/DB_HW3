@@ -1,0 +1,68 @@
+--------------------TASKs-----------------------------
+1) Вывести имена студентов и курсы, которые они проходят
+
+2) Вывести имена всех преподавателей с их компетенциями
+
+3) Найти преподавателя, у которого нет компетенций
+
+4) Найти имена студентов, которые не проходят ни один курс
+
+5) Найти курсы, которые не посещает ни один студент
+
+6) Найти компетенции, которых нет ни у одного преподавателя
+
+7) Вывести название курса и имя старосты
+
+8) Вывести имя студента и имена старост, которые есть на курсах, которые он проходит
+
+--------------------------------------------------------------------------------------
+
+1.
+
+SELECT Students.name_student, Courses.title_course
+FROM Students
+JOIN Students2Courses ON Students.id_student = Students2Courses.id_student
+JOIN Courses ON Courses.id_course = Students2Courses.id_course;
+
+2.
+SELECT Teachers.name_teacher, Competencies.title_competen
+FROM Teachers
+JOIN Teachers2Competencies ON Teachers.id_teacher = Teachers2Competencies.id_teacher
+JOIN Competencies ON Competencies.id_competen = Teachers2Competencies.id_competen;
+
+3.
+SELECT Teachers.name_teacher
+FROM Teachers
+LEFT JOIN Teachers2Competencies ON Teachers.id_teacher = Teachers2Competencies.id_teacher
+WHERE Teachers2Competencies.id_teacher IS NULL;
+
+4.
+SELECT Students.name_student
+FROM Students
+LEFT JOIN Students2Courses ON Students.id_student = Students2Courses.id_student
+WHERE Students2Courses.id_student IS NULL;
+
+5.
+SELECT Courses.title_course
+FROM Courses
+LEFT JOIN Students2Courses ON Courses.id_course = Students2Courses.id_course
+WHERE Students2Courses.id_course IS NULL;
+
+6.
+SELECT Competencies.title_competen
+FROM Competencies
+LEFT JOIN Teachers2Competencies ON Competencies.id_competen = Teachers2Competencies.id_competen
+WHERE Teachers2Competencies.id_competen IS NULL;
+
+7.
+SELECT Courses.title_course, Students.name_student as Starosta
+FROM Courses
+LEFT JOIN Students ON Courses.id_headman = Students.id_student;
+
+8.
+
+SELECT S.name_student AS student_name, H.name_student AS headman_name
+FROM Students AS S
+JOIN Students2Courses AS SC ON S.id_student = SC.id_student
+JOIN Courses AS C ON C.id_course = SC.id_course
+LEFT JOIN Students AS H ON C.id_headman = H.id_student;
